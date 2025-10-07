@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moon Star Fashion | Home</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  body {
+    background-color: #f5f7ff;
+    color: #212529;
+    line-height: 1.6;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #4361ee, #3a0ca3);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .logo i {
+    margin-right: 0.5rem;
+    color: #f72585;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    background-color: rgba(255,255,255,0.2);
+  }
+
+  .page-content {
+    padding: 6rem 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    background: linear-gradient(rgba(67,97,238,0.9), rgba(58,12,163,0.9)),
+                url('https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+    color: white;
+    padding: 4rem 2rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+  }
+
+  .btn {
+    display: inline-block;
+    background-color: #f72585;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><i class="fas fa-tshirt"></i>Moon Star Fashion</div>
+  <div class="nav-links">
+    <a href="{% url 'index' %}" class="nav-link active">Home</a>
+    <a href="{% url 'about' %}" class="nav-link">About Us</a>
+    <a href="{% url 'employee_register_page' %}" class="nav-link">Employee Register</a>
+    <a href="{% url 'supplier_register_page' %}" class="nav-link">Supplier Register</a>
+    <a href="{% url 'admin_login' %}" class="nav-link">Admin</a>
+    <a href="{% url 'login_page' %}" class="nav-link">Login</a>
+  </div>
+</nav>
+
+<section class="page-content">
+  <div class="hero">
+    <h1>Streamline Your Garment Business</h1>
+    <p>Manage inventory, orders, and customers with our all-in-one garment shop management solution</p>
+    <div class="hero-buttons">
+      <a href="{% url 'employee_register_page' %}" class="btn">Employee Register</a>
+      <a href="{% url 'supplier_register_page' %}" class="btn">Supplier Register</a>
+      <a href="{% url 'login_page' %}" class="btn">Login</a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

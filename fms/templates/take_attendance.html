@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Take Attendace</title>    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #1a1a1a;
+            margin: 0px;
+        }
+
+        h2 {
+            color: #4169e1; 
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 5px solid #adb5e2;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4169e1; 
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #e6ecff; 
+        }
+        tr:hover {
+            background-color: #b0c4ff;
+        }
+        .btn {
+            background-color: #4169e1; 
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #27408b; 
+        }
+
+        input[type="checkbox"] {
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+        .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 5%;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        }
+        .nav-links {
+        display: flex;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover, .dropdown.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+                .dropdown {
+        position: relative;
+        }
+
+        .dropbtn {
+        background: none;
+        border: none;
+        color: white;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+
+        .dropbtn:hover {
+        background-color: rgba(255,255,255,0.2);
+        }
+
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;  
+        left: 0;
+        background-color: white;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        border-radius: 6px;
+        z-index: 200;   
+        }
+
+        .dropdown-content a {
+        color: #333;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        }
+
+        .dropdown-content a:hover {
+        background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+        display: block;
+        }
+    </style>
+</head>
+<body>
+            <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-tshirt"></i>
+            <span>Moon Star Fashion</span>
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'employee_list' %}" class="nav-link">Home</a>
+
+            <div class="dropdown">
+                <button class="dropbtn">Add <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                <a href="{% url 'employee_add' %}">Add New Employee</a>
+                <a href="{% url 'supplier_add' %}">Add New Supplier</a>
+                <a href="{% url 'product_add' %}">Add New Product</a>
+                <a href="{% url 'employee_bonus' %}">Add Bonus Percentage</a>
+                </div>
+            </div>
+                    <div class="dropdown active">
+                <button class="dropbtn">Attendance <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="{% url 'take_attendance' %}">Take Attendance</a>
+                    <a href="{% url 'attendance_list' %}">Edit Attendance</a><br>
+                </div>
+            </div>
+            <a href="{% url 'employee_list' %}#emp" class="nav-link">View all Employee</a>
+            <a href="{% url 'employee_list' %}#sup" class="nav-link">View all Supplier</a>
+            <a href="{% url 'employee_list' %}#pro" class="nav-link">View all Product</a>
+            <a href="{% url 'admin_logout' %}" class="nav-link">Logout</a>
+        </div>
+        </nav>
+
+    <h2>Take Attendance</h2>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>Employee ID - Name</th>
+                <th>Present</th>
+            </tr>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp.id }} - {{ emp.employee.name|default:"No Name" }}</td>
+                <td>
+                    <input type="checkbox" name="attend_{{ emp.id }}" checked>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit" class="btn">Submit Attendance</button>    
+        <a href="{% url 'attendance_list' %}" class="btn" style="float: right;">Back to Attendance List</a>
+    </form>
+</body>
+</html>

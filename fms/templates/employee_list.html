@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Admin Dashboard</title>
+    <style>
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 5%;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        }
+        .nav-links {
+        display: flex;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4ff;
+            color: #1a1a1a;
+        }
+
+        h1, h2 {
+            color: #2e5cb8; 
+            margin-bottom: 10px;
+            scroll-margin-top: 130px;
+        }
+
+        a.btn {
+            display: inline-block;
+            background-color: #2e5cb8;
+            color: white;
+            padding: 014px 12px;
+            margin: 5px 0 15px 0;
+            text-decoration: none;
+            border-radius: 13px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;  
+            align-items: center ;
+        }
+
+        a.btn:hover {
+            background-color: #1f3f88;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2e5cb8;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f5f7ff;
+        }
+
+        tr:hover {
+            background-color: #d0e0ff;
+        }
+
+        table a {
+            color: #2e5cb8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        table a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            
+            th, td {
+                padding: 10px;
+                border: none;
+            }
+            
+            tr {
+                margin-bottom: 15px;
+                background-color: #f5f7ff;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+            
+            th {
+                background-color: #2e5cb8;
+                color: white;
+            }
+        }
+        .dropdown {
+        position: relative;
+        }
+
+        .dropbtn {
+        background: none;
+        border: none;
+        color: white;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+
+        .dropbtn:hover {
+        background-color: rgba(255,255,255,0.2);
+        }
+
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;  
+        left: 0;
+        background-color: white;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        border-radius: 6px;
+        z-index: 200;   
+        }
+
+        .dropdown-content a {
+        color: #333;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        }
+
+        .dropdown-content a:hover {
+        background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+        display: block;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+    <div class="logo">
+        <i class="fas fa-tshirt"></i>
+        <span>Moon Star Fashion</span>
+    </div>
+    <div class="nav-links">
+        <a href="{% url 'employee_list' %}" class="nav-link active">Home</a>
+        <a href="{% url 'index' %}" class="nav-link">Index</a>
+        <div class="dropdown">
+            <button class="dropbtn">Add <i class="fa fa-caret-down"></i></button>
+            <div class="dropdown-content">
+            <a href="{% url 'employee_add' %}">Add New Employee</a>
+            <a href="{% url 'supplier_add' %}">Add New Supplier</a>
+            <a href="{% url 'product_add' %}">Add New Product</a>
+            <a href="{% url 'employee_bonus' %}">Add Bonus Percentage</a>
+            </div>
+        </div>
+                <div class="dropdown">
+            <button class="dropbtn">Attendance <i class="fa fa-caret-down"></i></button>
+            <div class="dropdown-content">
+                <a href="{% url 'take_attendance' %}">Take Attendance</a>
+                <a href="{% url 'attendance_list' %}">Edit Attendance</a><br>
+            </div>
+        </div>
+        <a href="#emp" class="nav-link">View all Employee</a>
+        <a href="#sup" class="nav-link">View all Supplier</a>
+        <a href="#pro" class="nav-link">View all Product</a>
+        <a href="{% url 'admin_logout' %}" class="nav-link">Logout</a>
+    </div>
+    </nav>
+
+    <br><br>
+
+    <h1 style="text-align: center;">Admin Dashboard</h1><hr><br><br>
+
+    <h2 id="emp">Employees</h2>
+    <a href="{% url 'employee_add' %}" class="btn">Add New Employee</a>
+    <a href="{% url 'employee_bonus' %}" class="btn" style ="background-color: #766b81;">Add Bonus Percentage</a> 
+    <table border="1" cellpadding="10">
+    <tr>
+        <th>SL</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Salary</th>
+        <th>Total Productions</th>                
+        <th>Actions</th>
+    </tr>
+    {% for emp in employees %}
+    <tr>
+        <td>{{ emp.sl }}</td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.position }}</td>
+        <td>{{ emp.phone }}</td>
+        <td>{{ emp.email }}</td>
+        <td>BDT {{ emp.salary }}</td>
+        <td>{{ emp.total_production|default:0 }} 
+            <p style="float: right;">( {{ products.0.name }} )</p>
+        </td>
+        <td>
+        <a href="{% url 'employee_edit' emp.sl %}" class="btnED">Edit</a> |
+        <a href="{% url 'employee_delete' emp.sl %}" onclick="return confirm('Delete this employee?');" class="btnED">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table><hr>
+
+    <h2 id="sup">Suppliers</h2>
+    <a href="{% url 'supplier_add' %}" class="btn">Add New Supplier</a>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Raw Material</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        {% for sup in suppliers %}
+        <tr>
+            <td>{{ sup.sl }}</td>
+            <td>{{ sup.name }}</td>
+            <td>{{ sup.email }}</td>
+            <td>{{ sup.phone }}</td>
+            <td>{{ sup.Raw_Material }}</td>
+            <td>{{ sup.Quantity }}</td>
+            <td>{{ sup.Price }}</td>
+            <td>
+                <a href="{% url 'supplier_edit' sup.sl %}" class="btnED" >Edit</a> |
+                <a href="{% url 'supplier_delete' sup.sl %}" onclick="return confirm('Delete this supplier?');" class="btnED">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table><hr>
+
+    <h2 id="pro">Products</h2>
+    <a href="{% url 'product_add' %}" class="btn">Add New Product</a>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        {% for prod in products %}
+        <tr>
+            <td>{{ prod.sl }}</td>
+            <td>{{ prod.name }}</td>
+            <td>BDT {{ prod.price }}</td>
+            <td>
+                <a href="{% url 'product_edit' prod.sl %}" class="btnED">Edit</a> |
+                <a href="{% url 'product_delete' prod.sl %}" onclick="return confirm('Delete this product?');" class="btnED">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

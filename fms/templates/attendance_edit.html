@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Attendance Edit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4ff; 
+            color: #1a1a1a;
+            margin: 0px;
+        }
+
+        h2 {
+            color: #2e5cb8; 
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 5px;
+            border: 1px solid #2e5cb8;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #2e5cb8;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #1f3f88;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #2e5cb8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                width: 90%;
+                padding: 15px;
+            }
+        }
+        .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 5%;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        }
+        .nav-links {
+        display: flex;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover, .dropdown.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+                .dropdown {
+        position: relative;
+        }
+
+        .dropbtn {
+        background: none;
+        border: none;
+        color: white;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+
+        .dropbtn:hover {
+        background-color: rgba(255,255,255,0.2);
+        }
+
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;  
+        left: 0;
+        background-color: white;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        border-radius: 6px;
+        z-index: 200;   
+        }
+
+        .dropdown-content a {
+        color: #333;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        }
+
+        .dropdown-content a:hover {
+        background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+        display: block;
+        }
+    </style>
+</head>
+<body>
+        <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-tshirt"></i>
+            <span>Moon Star Fashion</span>
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'employee_list' %}" class="nav-link">Home</a>
+
+            <div class="dropdown">
+                <button class="dropbtn">Add <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                <a href="{% url 'employee_add' %}">Add New Employee</a>
+                <a href="{% url 'supplier_add' %}">Add New Supplier</a>
+                <a href="{% url 'product_add' %}">Add New Product</a>
+                <a href="{% url 'employee_bonus' %}">Add Bonus Percentage</a>
+                </div>
+            </div>
+                    <div class="dropdown active">
+                <button class="dropbtn">Attendance <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="{% url 'take_attendance' %}">Take Attendance</a>
+                    <a href="{% url 'attendance_list' %}">Edit Attendance</a><br>
+                </div>
+            </div>
+            <a href="{% url 'employee_list' %}#emp" class="nav-link">View all Employee</a>
+            <a href="{% url 'employee_list' %}#sup" class="nav-link">View all Supplier</a>
+            <a href="{% url 'employee_list' %}#pro" class="nav-link">View all Product</a>
+            <a href="{% url 'admin_logout' %}" class="nav-link">Logout</a>
+        </div>
+        </nav>
+    <h2>Edit Attendance for {{ attendance.employee.employee.name }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2><a href="{% url 'attendance_list' %}">Back to Attendance List</a></h2>
+</body>
+</html>

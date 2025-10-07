@@ -1,0 +1,12 @@
+django-admin startproject fms 
+cd fms
+py manage.py createsuperuser (lamia, lj@g.com, password aa@12345)
+
+py manage.py makemigrations fms
+py manage.py migrate
+py manage.py runserver
+
+py manage.py dbshell (direct SQL code run)
+del db.sqlite3 (DB delete)
+
+
