@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Edit</title>  
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0px;
+    }
+
+    h1 {
+      color: #4169e1; 
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border: 2px solid #4169e1;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px 0;
+      border: 1px solid #4169e1;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4169e1;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #27408b; 
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #4169e1;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: #27408b;
+    }
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 5%;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        }
+        .nav-links {
+        display: flex;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover, .dropdown.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+                .dropdown {
+        position: relative;
+        }
+
+        .dropbtn {
+        background: none;
+        border: none;
+        color: white;
+        font-weight: 500;
+        font-size: 1rem;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+
+        .dropbtn:hover {
+        background-color: rgba(255,255,255,0.2);
+        }
+
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;  
+        left: 0;
+        background-color: white;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        border-radius: 6px;
+        z-index: 200;   
+        }
+
+        .dropdown-content a {
+        color: #333;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        }
+
+        .dropdown-content a:hover {
+        background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+        display: block;
+        }
+  </style>
+
+</head>
+<body>
+      <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-tshirt"></i>
+            <span>Moon Star Fashion</span>
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'employee_list' %}" class="nav-link">Home</a>
+
+            <div class="dropdown active">
+                <button class="dropbtn">Add <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                <a href="{% url 'employee_add' %}">Add New Employee</a>
+                <a href="{% url 'supplier_add' %}">Add New Supplier</a>
+                <a href="{% url 'product_add' %}">Add New Product</a>
+                <a href="{% url 'employee_bonus' %}">Add Bonus Percentage</a>
+                </div>
+            </div>
+                    <div class="dropdown">
+                <button class="dropbtn">Attendance <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="{% url 'take_attendance' %}">Take Attendance</a>
+                    <a href="{% url 'attendance_list' %}">Edit Attendance</a><br>
+                </div>
+            </div>
+            <a href="{% url 'employee_list' %}#emp" class="nav-link">View all Employee</a>
+            <a href="{% url 'employee_list' %}#sup" class="nav-link">View all Supplier</a>
+            <a href="{% url 'employee_list' %}#pro" class="nav-link">View all Product</a>
+            <a href="{% url 'admin_logout' %}" class="nav-link">Logout</a>
+        </div>
+      </nav>
+  <h1>Edit Employee</h1>
+  <form method="POST">
+    {% csrf_token %}
+    Name: <input type="text" name="name" value="{{ employee.name }}" required><br>
+    Position: <input type="text" name="position" value="{{ employee.position }}" required><br>
+    Phone: <input type="number" name="phone" value="{{ employee.phone }}" required><br>
+    Email: <input type="email" name="email" value="{{ employee.email }}" required><br>
+    Salary: <input type="number" name="salary" value="{{ employee.salary }}" required><br>
+    Password: <input type="text" name="password" value="{{ employee.password }}" required><br>
+    <button type="submit">Update</button>
+  </form>
+  <a href="{% url 'employee_list' %}">Back to List</a>
+</body>
+</html>

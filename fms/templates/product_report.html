@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between">
+
+        <h2>Product Report</h2>
+
+        <div>
+
+            <button
+                onclick="window.print()"
+                class="btn btn-success">
+
+                Print / Save PDF
+
+            </button>
+
+            <a
+                href="{% url 'admin_redirect' %}"
+                class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+
+    <!-- Summary -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-6">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>{{ product_count }}</h3>
+
+                    <p>Total Products</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>
+
+                        BDT {{ total_product_price }}
+
+                    </h3>
+
+                    <p>Total Product Price</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Product Table -->
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-primary">
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Product Name</th>
+
+                <th>Price</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            {% for product in products %}
+
+            <tr>
+
+                <td>
+
+                    {{ product.sl }}
+
+                </td>
+
+                <td>
+
+                    {{ product.name }}
+
+                </td>
+
+                <td>
+
+                    BDT {{ product.price }}
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td
+                    colspan="3"
+                    class="text-center">
+
+                    No product data found.
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<style>
+
+@media print {
+
+    .btn {
+        display: none;
+    }
+
+}
+
+</style>
+
+{% endblock %}

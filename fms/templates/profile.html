@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>employee Profile</title>
+</head>
+<body>
+  {% extends 'base.html' %}
+  {% block content %}
+  <div class="card">
+    <div class="card-body">
+      <h5>Profile</h5>
+      <table class="table">
+        <tr><th>Full name</th><td>{{ profile.employee.name }}</td></tr>
+        <tr><th>Email</th><td>{{ profile.user.username }}</td></tr>
+        <tr><th>Public ID</th><td>{{ profile.public_id }}</td></tr>
+        <tr><th>Email</th><td>{{ profile.user.email }}</td></tr>
+        <tr><th>Phone</th><td>{{ profile.phone }}</td></tr>
+        <tr><th>Designation</th><td>{{ profile.designation }}</td></tr>
+      </table>
+    </div>
+  </div>
+  {% endblock %}
+</body>
+</html>

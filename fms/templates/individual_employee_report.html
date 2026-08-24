@@ -1,0 +1,475 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- Header -->
+    <div class="report-header">
+
+        <div>
+            <h2>Individual Employee Report</h2>
+            <p class="text-muted">
+                Employee Performance & Attendance Report
+            </p>
+        </div>
+
+        <div class="report-buttons">
+            <button onclick="window.print()" class="report-btn print-btn">
+                <i class="fas fa-print"></i> Print / Save PDF
+            </button>
+
+            <a href="{% url 'admin_redirect' %}" class="report-btn back-btn">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+        </div>
+
+    </div>
+
+    <hr>
+
+
+    <!-- Employee Information -->
+
+    <div class="report-card">
+
+        <div class="card-title employee-title">
+            <i class="fas fa-user"></i>
+            Employee Information
+        </div>
+
+        <div class="card-content">
+
+            <table class="info-table">
+
+                <tr>
+                    <th>Employee ID</th>
+                    <td>{{ employee.sl }}</td>
+                </tr>
+
+                <tr>
+                    <th>Name</th>
+                    <td>{{ employee.name }}</td>
+                </tr>
+
+                <tr>
+                    <th>Position</th>
+                    <td>{{ employee.position }}</td>
+                </tr>
+
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ employee.phone }}</td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>{{ employee.email }}</td>
+                </tr>
+
+                <tr>
+                    <th>Salary</th>
+                    <td>BDT {{ employee.salary }}</td>
+                </tr>
+
+                <tr>
+                    <th>Bonus Percentage</th>
+                    <td>{{ employee.bonus_percentage }}%</td>
+                </tr>
+
+                <tr>
+                    <th>Total Production</th>
+                    <td><strong>{{ total_production }}</strong></td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- Production History -->
+
+    <div class="report-card">
+
+        <div class="card-title production-title">
+            <i class="fas fa-box"></i>
+            Production History
+        </div>
+
+        <div class="card-content">
+
+            <table class="report-table">
+
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Production Quantity</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for production in productions %}
+
+                    <tr>
+                        <td>{{ production.date }}</td>
+                        <td>{{ production.quantity }}</td>
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="2" class="empty">
+                            No production data found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- Attendance Summary -->
+
+    <div class="summary-row">
+
+        <div class="summary-card">
+
+            <div class="summary-number">
+                {{ total_present }}
+            </div>
+
+            <div class="summary-label">
+                Total Clock In / Present
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-number">
+                {{ total_out }}
+            </div>
+
+            <div class="summary-label">
+                Total Clock Out
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Attendance History -->
+
+    <div class="report-card">
+
+        <div class="card-title attendance-title">
+            <i class="fas fa-calendar-check"></i>
+            Attendance History
+        </div>
+
+        <div class="card-content">
+
+            <table class="report-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Marked By</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for attendance in attendances %}
+
+                    <tr>
+
+                        <td>
+                            {{ attendance.date }}
+                        </td>
+
+                        <td>
+                            {{ attendance.timestamp|date:"d M Y, h:i A" }}
+                        </td>
+
+                        <td>
+
+                            {% if attendance.status == "IN" %}
+
+                                <span class="status-in">
+                                    Clock In
+                                </span>
+
+                            {% else %}
+
+                                <span class="status-out">
+                                    Clock Out
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% if attendance.marked_by_admin %}
+                                Admin
+                            {% else %}
+                                Employee
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="4" class="empty">
+                            No attendance data found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+/* =========================
+   REPORT HEADER
+========================= */
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.report-header h2 {
+    margin-bottom: 5px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.report-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.report-btn {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 7px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.print-btn {
+    background: #198754;
+}
+
+.back-btn {
+    background: #6c757d;
+}
+
+.report-btn:hover {
+    opacity: 0.9;
+    color: white;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.report-card {
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.card-title {
+    padding: 14px 18px;
+    color: white;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.employee-title {
+    background: #2e5cb8;
+}
+
+.production-title {
+    background: #198754;
+}
+
+.attendance-title {
+    background: #f0ad00;
+    color: #222;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+
+/* =========================
+   EMPLOYEE INFORMATION
+========================= */
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.info-table th,
+.info-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.info-table th {
+    width: 30%;
+    background: #f5f7ff;
+}
+
+
+/* =========================
+   REPORT TABLE
+========================= */
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.report-table th,
+.report-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.report-table th {
+    background: #2e5cb8;
+    color: white;
+}
+
+.report-table tr:nth-child(even) {
+    background: #f5f7ff;
+}
+
+.empty {
+    text-align: center;
+    padding: 20px !important;
+}
+
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.summary-card {
+    flex: 1;
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.summary-number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2e5cb8;
+}
+
+.summary-label {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status-in {
+    color: green;
+    font-weight: bold;
+}
+
+.status-out {
+    color: red;
+    font-weight: bold;
+}
+
+
+/* =========================
+   PRINT
+========================= */
+
+@media print {
+
+    .report-buttons {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+    }
+
+    .report-card,
+    .summary-card {
+        box-shadow: none !important;
+        break-inside: avoid;
+    }
+
+    .navbar {
+        display: none !important;
+    }
+
+}
+
+</style>
+
+{% endblock %}

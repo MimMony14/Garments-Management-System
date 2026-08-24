@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Moon Star Fashion</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .logo i {
+      margin-right: 10px;
+      font-size: 1.8rem;
+    }
+    
+    .nav-links {
+      display: flex;
+    }
+    
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 4px;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .page-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .hero-section {
+      text-align: center;
+      padding: 4rem 1rem;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      border-radius: 10px;
+      margin-bottom: 3rem;
+    }
+    
+    .hero-section h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-section p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: #6a11cb;
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      background: #2575fc;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #333;
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      border-radius: 2px;
+    }
+    
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+      align-items: center;
+    }
+    
+    .about-image {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+      .about-image img {
+          width: 100%;      
+          max-width: 400px; 
+          height: auto;   
+          display: block;
+          transition: transform 0.5s ease;
+      }
+      
+    
+    .about-image:hover img {
+      transform: scale(1.05);
+    }
+    
+    .about-text h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    
+    .about-text p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      color: #555;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      color: #6a11cb;
+      margin-bottom: 1rem;
+    }
+    
+    .feature-card h3 {
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    
+    .team-section {
+      margin-bottom: 4rem;
+    }
+    
+    .team-members {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .team-member {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-5px);
+    }
+    
+    .member-image {
+      height: 250px;
+      overflow: hidden;
+    }
+    
+    .member-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .team-member:hover .member-image img {
+      transform: scale(1.1);
+    }
+    
+    .member-info {
+      padding: 1.5rem;
+    }
+    
+    .member-info h3 {
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    
+    .member-role {
+      color: #6a11cb;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .values-section {
+      margin-bottom: 4rem;
+    }
+    
+    .values {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .value-item {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    .value-item h3 {
+      color: #333;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .value-item h3 i {
+      margin-right: 10px;
+      color: #6a11cb;
+    }
+    
+    .cta-section {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      border-radius: 10px;
+      margin-bottom: 3rem;
+    }
+    
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .cta-section p {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      font-size: 1.2rem;
+    }
+    
+    .btn-light {
+      background: white;
+      color: #6a11cb;
+    }
+    
+    .btn-light:hover {
+      background: #f8f9fa;
+      color: #2575fc;
+    }
+    
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .social-links {
+      margin-bottom: 1rem;
+    }
+    
+    .social-links a {
+      color: white;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      color: #6a11cb;
+    }
+    
+    @media (max-width: 900px) {
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero-section h1 {
+        font-size: 2.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      .logo {
+        margin-bottom: 1rem;
+      }
+      
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .nav-link {
+        margin: 5px;
+        font-size: 0.9rem;
+      }
+      
+      .hero-section h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-section p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-tshirt"></i>
+      <span>Moon Star Fashion</span>
+    </div>
+    <div class="nav-links">
+      <a href="{% url 'index' %}" class="nav-link">Home</a>
+      <a href="{% url 'about' %}" class="nav-link active">About Us</a>
+      <a href="{% url 'employee_register_page' %}" class="nav-link">Employee Register</a>
+      <a href="{% url 'supplier_register_page' %}" class="nav-link">Supplier Register</a>
+      <a href="{% url 'admin_redirect' %}" class="nav-link">Admin</a>
+      <a href="{% url 'login_page' %}" class="nav-link">Login</a>
+    </div>
+  </nav>
+
+    <section class="hero-section">
+      <h1>About Moon Star Fashion</h1>
+      <p>Discover the story behind our passion for fashion and our commitment to excellence in garment shop management.</p>
+    </section>
+
+    <div class="page-content">
+        <div class="about-text">
+          <h2>Our Story</h2>
+          <p>Moon Star Fashion was founded with a vision to revolutionize the fashion retail industry by providing comprehensive solutions for garment shop management. What started as a small boutique has now grown into a trusted brand known for quality and innovation.</p>
+          <p>We understand the challenges faced by fashion retailers, which is why we've developed a complete ecosystem that streamlines operations, from inventory management to customer engagement.</p>
+          <p>Our commitment to excellence and customer satisfaction has been the driving force behind our success. We continuously evolve to meet the changing demands of the fashion industry while maintaining our core values.</p>
+        </div>
+      </section>
+
+  <hr><br><br><br>
+  <i class="fa-solid fa-phone"></i> Contact: (+88) 01726407870<br>
+  <i class="fa fa-home"></i> Address: Gazipur, Bangladesh
+</body>
+</html>

@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center">
+
+        <h2>Individual Supplier Report</h2>
+
+        <div>
+
+            <button
+                onclick="window.print()"
+                class="btn btn-success">
+
+                Print / Save PDF
+
+            </button>
+
+            <a
+                href="{% url 'admin_redirect' %}"
+                class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+
+    <!-- Supplier Information -->
+
+    <div class="card mb-4">
+
+        <div class="card-header bg-primary text-white">
+
+            <h4>Supplier Information</h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Supplier ID</th>
+                    <td>{{ supplier.sl }}</td>
+                </tr>
+
+                <tr>
+                    <th>Name</th>
+                    <td>{{ supplier.name }}</td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>{{ supplier.email }}</td>
+                </tr>
+
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ supplier.phone }}</td>
+                </tr>
+
+                <tr>
+                    <th>Address</th>
+                    <td>{{ supplier.address }}</td>
+                </tr>
+
+                <tr>
+                    <th>Raw Material</th>
+                    <td>{{ supplier.Raw_Material }}</td>
+                </tr>
+
+                <tr>
+                    <th>Quantity</th>
+                    <td>{{ supplier.Quantity }}</td>
+                </tr>
+
+                <tr>
+                    <th>Price</th>
+                    <td>BDT {{ supplier.Price }}</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- Supplier Summary -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>{{ supplier.Quantity }}</h3>
+
+                    <p>Total Material Quantity</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>BDT {{ supplier.Price }}</h3>
+
+                    <p>Total Material Price</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>{{ supplier.Raw_Material }}</h3>
+
+                    <p>Raw Material</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<style>
+
+@media print {
+
+    .btn {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+    }
+
+    .card {
+        break-inside: avoid;
+    }
+
+}
+
+</style>
+
+{% endblock %}

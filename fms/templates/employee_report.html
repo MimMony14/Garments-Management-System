@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center">
+
+        <h2>Employee Report</h2>
+
+        <div>
+
+            <button
+                onclick="window.print()"
+                class="btn btn-success">
+
+                Print / Save PDF
+
+            </button>
+
+            <a
+                href="{% url 'admin_redirect' %}"
+                class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+
+    <!-- Summary -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>{{ employee_count }}</h3>
+
+                    <p>Total Employees</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>BDT {{ total_salary }}</h3>
+
+                    <p>Total Salary</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>{{ total_production }}</h3>
+
+                    <p>Total Production</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Employee Table -->
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-primary">
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Name</th>
+
+                <th>Position</th>
+
+                <th>Phone</th>
+
+                <th>Email</th>
+
+                <th>Salary</th>
+
+                <th>Total Production</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            {% for employee in employees %}
+
+            <tr>
+
+                <td>{{ employee.sl }}</td>
+
+                <td>{{ employee.name }}</td>
+
+                <td>{{ employee.position }}</td>
+
+                <td>{{ employee.phone }}</td>
+
+                <td>{{ employee.email }}</td>
+
+                <td>BDT {{ employee.salary }}</td>
+
+                <td>
+
+                    {{ employee.total_production|default:0 }}
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td
+                    colspan="7"
+                    class="text-center">
+
+                    No employee data found.
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<style>
+
+@media print {
+
+    .btn {
+        display: none;
+    }
+
+    body {
+        background: white;
+    }
+
+}
+
+</style>
+
+{% endblock %}

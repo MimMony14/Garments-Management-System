@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between">
+
+        <h2>Supplier Report</h2>
+
+        <div>
+
+            <button
+                onclick="window.print()"
+                class="btn btn-success">
+
+                Print / Save PDF
+
+            </button>
+
+            <a
+                href="{% url 'admin_redirect' %}"
+                class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+
+    <!-- Summary -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>{{ supplier_count }}</h3>
+
+                    <p>Total Suppliers</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>{{ total_quantity }}</h3>
+
+                    <p>Total Material Quantity</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>BDT {{ total_price }}</h3>
+
+                    <p>Total Material Price</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Supplier Table -->
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-primary">
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Name</th>
+
+                <th>Email</th>
+
+                <th>Phone</th>
+
+                <th>Address</th>
+
+                <th>Raw Material</th>
+
+                <th>Quantity</th>
+
+                <th>Price</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            {% for supplier in suppliers %}
+
+            <tr>
+
+                <td>{{ supplier.sl }}</td>
+
+                <td>{{ supplier.name }}</td>
+
+                <td>{{ supplier.email }}</td>
+
+                <td>{{ supplier.phone }}</td>
+
+                <td>{{ supplier.address }}</td>
+
+                <td>{{ supplier.Raw_Material }}</td>
+
+                <td>{{ supplier.Quantity }}</td>
+
+                <td>
+
+                    BDT {{ supplier.Price }}
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="text-center">
+
+                    No supplier data found.
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<style>
+
+@media print {
+
+    .btn {
+        display: none;
+    }
+
+}
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- Header -->
+
+    <div class="d-flex justify-content-between align-items-center">
+
+        <h2>Individual Product Report</h2>
+
+        <div>
+
+            <button
+                onclick="window.print()"
+                class="btn btn-success">
+
+                Print / Save PDF
+
+            </button>
+
+            <a
+                href="{% url 'admin_redirect' %}"
+                class="btn btn-secondary">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+
+    <!-- Product Information -->
+
+    <div class="card mb-4">
+
+        <div class="card-header bg-primary text-white">
+
+            <h4>Product Information</h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <tr>
+
+                    <th>Product ID</th>
+
+                    <td>{{ product.sl }}</td>
+
+                </tr>
+
+
+                <tr>
+
+                    <th>Product Name</th>
+
+                    <td>{{ product.name }}</td>
+
+                </tr>
+
+
+                <tr>
+
+                    <th>Price</th>
+
+                    <td>BDT {{ product.price }}</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- Product Summary -->
+
+    <div class="row mb-4">
+
+        <div class="col-md-6">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>{{ product.name }}</h3>
+
+                    <p>Product Name</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="card text-center">
+
+                <div class="card-body">
+
+                    <h3>BDT {{ product.price }}</h3>
+
+                    <p>Product Price</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<style>
+
+@media print {
+
+    .btn {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+    }
+
+    .card {
+        break-inside: avoid;
+    }
+
+}
+
+</style>
+
+{% endblock %}

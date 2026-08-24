@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Edit</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        margin: 20px;
+      }
+
+      h1 {
+        color: #4169e1; 
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 2px solid #4169e1;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+
+      input[type="text"],
+      input[type="number"],
+      input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0 20px 0;
+        border: 1px solid #4169e1;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4169e1;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #27408b; 
+      }
+
+      a {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        text-decoration: none;
+        color: #4169e1;
+        font-weight: bold;
+      }
+
+      a:hover {
+        color: #27408b;
+      }
+    </style>
+
+</head>
+<body>
+  <h1>Edit Product</h1>
+  <form method="POST">
+    {% csrf_token %}
+    Name: <input type="text" name="name" value="{{ product.name }}" required><br>
+    Price: <input type="number" name="price" value="{{ product.price }}" required><br>
+    <button type="submit">Update</button>
+  </form>
+  <a href="{% url 'employee_list' %}">Back to List</a>
+</body>
+</html>
