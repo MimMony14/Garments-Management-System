@@ -68,7 +68,7 @@
             display: inline-block;
             background-color: #2e5cb8;
             color: white;
-            padding: 14px 12px;
+            padding: 014px 12px;
             margin: 5px 0 15px 0;
             text-decoration: none;
             border-radius: 13px;
@@ -186,38 +186,6 @@
         .dropdown:hover .dropdown-content {
         display: block;
         }
-        .actions-cell {
-    white-space: nowrap;
-    text-align: center;
-}
-
-.action-btn {
-    display: inline-block;
-    padding: 7px 12px;
-    margin: 2px;
-    border-radius: 6px;
-    color: white !important;
-    text-decoration: none !important;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.edit-btn {
-    background-color: #2e5cb8;
-}
-
-.delete-btn {
-    background-color: #dc3545;
-}
-
-.report-btn {
-    background-color: #198754;
-}
-
-.action-btn:hover {
-    opacity: 0.85;
-    text-decoration: none !important;
-}
 
     </style>
 </head>
@@ -249,25 +217,6 @@
         <a href="#emp" class="nav-link">View all Employee</a>
         <a href="#sup" class="nav-link">View all Supplier</a>
         <a href="#pro" class="nav-link">View all Product</a>
-        <div class="dropdown">
-    <button class="dropbtn">
-        Reports <i class="fa fa-caret-down"></i>
-    </button>
-
-    <div class="dropdown-content">
-        <a href="{% url 'employee_report' %}">
-            Employee Report
-        </a>
-
-        <a href="{% url 'supplier_report' %}">
-            Supplier Report
-        </a>
-
-        <a href="{% url 'product_report' %}">
-            Product Report
-        </a>
-    </div>
-</div>
         <a href="{% url 'admin_logout' %}" class="nav-link">Logout</a>
     </div>
     </nav>
@@ -277,17 +226,9 @@
     <h1 style="text-align: center;">Admin Dashboard</h1><hr><br><br>
 
     <h2 id="emp">Employees</h2>
-
-<a href="{% url 'employee_add' %}" class="btn">
-    Add New Employee
-</a>
-
-<a href="{% url 'employee_bonus' %}" class="btn" style="background-color: #766b81;">
-    Add Bonus Percentage
-</a>
-
-<table border="1" cellpadding="10">
-
+    <a href="{% url 'employee_add' %}" class="btn">Add New Employee</a>
+    <a href="{% url 'employee_bonus' %}" class="btn" style ="background-color: #766b81;">Add Bonus Percentage</a> 
+    <table border="1" cellpadding="10">
     <tr>
         <th>SL</th>
         <th>Name</th>
@@ -295,176 +236,78 @@
         <th>Phone</th>
         <th>Email</th>
         <th>Salary</th>
-        <th>Total Productions</th>
+        <th>Total Productions</th>                
         <th>Actions</th>
     </tr>
-
     {% for emp in employees %}
-
     <tr>
-
         <td>{{ emp.sl }}</td>
-
         <td>{{ emp.name }}</td>
-
         <td>{{ emp.position }}</td>
-
         <td>{{ emp.phone }}</td>
-
         <td>{{ emp.email }}</td>
-
         <td>BDT {{ emp.salary }}</td>
-
+        <td>{{ emp.total_production|default:0 }} 
+            <p style="float: right;">( {{ products.0.name }} )</p>
+        </td>
         <td>
-            {{ emp.total_production|default:0 }}
-            <span style="float:right;">
-                ({{ products.0.name }})
-            </span>
+        <a href="{% url 'employee_edit' emp.sl %}" class="btnED">Edit</a> |
+        <a href="{% url 'employee_delete' emp.sl %}" onclick="return confirm('Delete this employee?');" class="btnED">Delete</a>
         </td>
-
-        <!-- ACTIONS -->
-        <td class="actions-cell">
-
-            <a href="{% url 'employee_edit' emp.sl %}"
-               class="action-btn edit-btn">
-                Edit
-            </a>
-
-            <a href="{% url 'employee_delete' emp.sl %}"
-               onclick="return confirm('Delete this employee?');"
-               class="action-btn delete-btn">
-                Delete
-            </a>
-
-            <a href="{% url 'individual_employee_report' emp.sl %}"
-               class="action-btn report-btn">
-                Report
-            </a>
-
-        </td>
-
     </tr>
-
     {% endfor %}
-
-</table><hr>
+    </table><hr>
 
     <h2 id="sup">Suppliers</h2>
-
-<a href="{% url 'supplier_add' %}" class="btn">
-    Add New Supplier
-</a>
-
-<table border="1" cellpadding="10">
-
-    <tr>
-
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Raw Material</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Actions</th>
-
-    </tr>
-
-    {% for sup in suppliers %}
-
-    <tr>
-
-        <td>{{ sup.sl }}</td>
-
-        <td>{{ sup.name }}</td>
-
-        <td>{{ sup.email }}</td>
-
-        <td>{{ sup.phone }}</td>
-
-        <td>{{ sup.Raw_Material }}</td>
-
-        <td>{{ sup.Quantity }}</td>
-
-        <td>BDT {{ sup.Price }}</td>
-
-        <td class="actions-cell">
-
-    <a href="{% url 'supplier_edit' sup.sl %}"
-       class="action-btn edit-btn">
-        Edit
-    </a>
-
-    <a href="{% url 'supplier_delete' sup.sl %}"
-       onclick="return confirm('Delete this supplier?');"
-       class="action-btn delete-btn">
-        Delete
-    </a>
-
-    <a href="{% url 'individual_supplier_report' sup.sl %}"
-       class="action-btn report-btn">
-        Report
-    </a>
-
-</td>
-
-    </tr>
-
-    {% endfor %}
-
-</table><hr>
+    <a href="{% url 'supplier_add' %}" class="btn">Add New Supplier</a>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Raw Material</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        {% for sup in suppliers %}
+        <tr>
+            <td>{{ sup.sl }}</td>
+            <td>{{ sup.name }}</td>
+            <td>{{ sup.email }}</td>
+            <td>{{ sup.phone }}</td>
+            <td>{{ sup.Raw_Material }}</td>
+            <td>{{ sup.Quantity }}</td>
+            <td>{{ sup.Price }}</td>
+            <td>
+                <a href="{% url 'supplier_edit' sup.sl %}" class="btnED" >Edit</a> |
+                <a href="{% url 'supplier_delete' sup.sl %}" onclick="return confirm('Delete this supplier?');" class="btnED">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table><hr>
 
     <h2 id="pro">Products</h2>
-
-<a href="{% url 'product_add' %}" class="btn">
-    Add New Product
-</a>
-
-<table border="1" cellpadding="10">
-
-    <tr>
-
-        <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Actions</th>
-
-    </tr>
-
-    {% for prod in products %}
-
-    <tr>
-
-        <td>{{ prod.sl }}</td>
-
-        <td>{{ prod.name }}</td>
-
-        <td>BDT {{ prod.price }}</td>
-
-        <td class="actions-cell">
-
-    <a href="{% url 'product_edit' prod.sl %}"
-       class="action-btn edit-btn">
-        Edit
-    </a>
-
-    <a href="{% url 'product_delete' prod.sl %}"
-       onclick="return confirm('Delete this product?');"
-       class="action-btn delete-btn">
-        Delete
-    </a>
-
-    <a href="{% url 'individual_product_report' prod.sl %}"
-       class="action-btn report-btn">
-        Report
-    </a>
-
-</td>
-
-    </tr>
-
-    {% endfor %}
-
-</table>
+    <a href="{% url 'product_add' %}" class="btn">Add New Product</a>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        {% for prod in products %}
+        <tr>
+            <td>{{ prod.sl }}</td>
+            <td>{{ prod.name }}</td>
+            <td>BDT {{ prod.price }}</td>
+            <td>
+                <a href="{% url 'product_edit' prod.sl %}" class="btnED">Edit</a> |
+                <a href="{% url 'product_delete' prod.sl %}" onclick="return confirm('Delete this product?');" class="btnED">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

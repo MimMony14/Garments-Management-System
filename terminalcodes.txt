@@ -1,6 +1,6 @@
 django-admin startproject fms 
 cd fms
-py manage.py createsuperuser (Mim, lj@g.com, password Mim@12345)
+py manage.py createsuperuser (lamia, lj@g.com, password aa@12345)
 
 py manage.py makemigrations fms
 py manage.py migrate

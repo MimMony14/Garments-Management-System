@@ -44,44 +44,6 @@ urlpatterns = [
     path('attendanceE/', views.attendance_history, name='attendance_history'),
 
     path('employee/bonus/', views.employee_bonus, name='employee_bonus'),
-
-    # Reports
-
-path(
-    'reports/employees/',
-    views.employee_report,
-    name='employee_report'
-),
-
-path(
-    'reports/suppliers/',
-    views.supplier_report,
-    name='supplier_report'
-),
-
-path(
-    'reports/products/',
-    views.product_report,
-    name='product_report'
-),
-path(
-    'individual-employee-report/<int:sl>/',
-    views.individual_employee_report,
-    name='individual_employee_report'
-),
-# Individual Supplier Report
-path(
-    'individual-supplier-report/<int:sl>/',
-    views.individual_supplier_report,
-    name='individual_supplier_report'
-),
-
-# Individual Product Report
-path(
-    'individual-product-report/<int:sl>/',
-    views.individual_product_report,
-    name='individual_product_report'
-),
 ]
     
 
